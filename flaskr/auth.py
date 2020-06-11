@@ -59,7 +59,9 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            g.user = username
+            get_db().execute(
+                'SELECT * FROM users WHERE id = ?', (user_id,)
+            ).fetchone()
             return redirect(url_for('weather.index'))
 
         flash(error)
