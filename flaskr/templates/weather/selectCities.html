@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Select cities</title>
+</head>
+<body>
+<a href="{{ url_for('weather.index') }}">Back</a>
+
+<form action="{{ url_for('weather.save_selected_cities') }}" method="post">
+ <table>
+    <tbody>
+    {%- for row in items %}
+    <tr>
+        {% if row[0] in selected_citites %}
+            <td> <input type="checkbox"  name="check" value="{{ row[0] }}"  checked  /> </td>
+        {% else %}
+            <td> <input type="checkbox"  name="check" value="{{ row[0] }}" /> </td>
+        {% endif %}
+        <td>{{ row[1] }}</td>
+    </tr>
+    {%- endfor %}
+    </tbody>
+ </table>
+ <input type="submit" value="Save {{ request.form.getlist('check')  }}" >
+</form>
+</body>
+</html>

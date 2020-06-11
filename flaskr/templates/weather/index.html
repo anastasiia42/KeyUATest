@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+<label> Hello, {{ g.user['username'] }} </label>
+<table>
+ <thead>
+  {%- for column in columns %}
+     <th>{{ column }}</th>
+  {%- endfor %}
+ </thead>
+
+ <tbody>
+ {%- for row in items %}
+    <tr>
+    {%- for value in row %}
+       <td>{{ value }}</td>
+    {%- endfor %}
+    </tr>
+ {%- endfor %}
+ </tbody>
+ </table>
+<UL>
+      <li><a href="{{ url_for('weather.load_select_cities') }}">Select cities</a>
+       {% if g.user['username'] == "admin" %}
+        <li><a href="{{ url_for('weather.load_admin_dashboard') }}">Admin dashboard</a>
+        {% endif %}
+</UL>
+</body>
+</html>

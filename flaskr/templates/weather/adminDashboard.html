@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin dashboard</title>
+</head>
+<body>
+<a href="{{ url_for('weather.index') }}">Back</a>
+<table>
+ <thead>
+  {%- for column in columns %}
+     <th>{{ column }}</th>
+  {%- endfor %}
+ </thead>
+
+ <tbody>
+ {%- for row in items %}
+    <tr>
+    {%- for value in row %}
+       <td>{{ value }}</td>
+    {%- endfor %}
+    </tr>
+ {%- endfor %}
+ </tbody>
+ </table>
+<form action = "{{ url_for('weather.add_city') }}" method="post" >
+    <input name="addCity" id = "addCity"  value="{{ request.form['addCity'] }}" required>
+    <input type="submit" value="Add new City" >
+</form>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+<form action="{{ url_for('weather.delete_city') }}" method="post">
+    <input name="deleteCity" id = "deleteCity" value="{{ request.form['deleteCity'] }}" required>
+    <input type="submit" value="Delete city with ID">
+</form>
+</body>
+</html>
